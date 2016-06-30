@@ -1,8 +1,9 @@
 /**
  A formatter. The `Result` type means the returned value at the end. The more formatters you compose, the
  more this will build up arguments. _E.g._, from `Result` to `(Int) -> Result` to
- `(Char) -> (Int) -> Result`, etc.
+ `(Character) -> (Int) -> Result`, etc.
  */
+
 public struct Formatter<Result, A> {
   public let format: ((String) -> Result) -> A
 }

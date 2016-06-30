@@ -28,7 +28,7 @@ NSLog(@"Hello, %@!", thing);           // Hello, (null)!
 **Formatting** brings compile-time checks.
 
 ``` swift
-print("Hello, " % string % "!", thing) // Hello, world!
+print("Hello, " % string % "!", thing) // Value of optional type String? not unwrapped
 ```
 
 And composability.
@@ -69,7 +69,7 @@ Call `format` without arguments to return a curried formatter function.
 
 ``` swift
 let log =
-  format(right(5) .% string % " -- [" % iso8601 % "] " % string)
+  format(right(5) % " -- [" % iso8601 % "] " % string)
 
 let infoLog = log("INFO")
 let debugLog = log("DEBUG")
