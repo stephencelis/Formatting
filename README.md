@@ -54,7 +54,7 @@ format(string % " is " % int % "years old.", "Alice", 25)
 Use `<>` to pass the previous formatter argument to the next formatter.
 
 ``` swift
-format(yyyy % "-" <> mm % "-" <> dd, Date())
+format(yyyy % "-" <> MM % "-" <> dd, Date())
 // "2016-06-28"
 ```
 
