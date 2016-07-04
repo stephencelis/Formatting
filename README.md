@@ -80,6 +80,12 @@ debugLog(Date())("Logged in successfully!")
 // "DEBUG -- [2016-06-28T12:34:56Z] Logged in successfully!"
 ```
 
+## Installation
+
+#### Manually
+1. Download and drop ```/Sources```folder in your project.  
+2. Congratulations!  
+
 ## License
 
 Formatting is available under the MIT license. See [the LICENSE
