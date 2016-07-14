@@ -4,9 +4,7 @@
  `(Character) -> (Int) -> Result`, etc.
  */
 
-public struct Formatter<Result, A> {
-  public let format: ((String) -> Result) -> A
-}
+public typealias Formatter<Result, A> = ((String) -> Result) -> A
 
 /**
  A formatter that transforms `Input` into `Result`.
@@ -17,7 +15,7 @@ public typealias FormatterOf<Input, Result> = Formatter<Result, (Input) -> Resul
  Run the formatter to produce a `String` value.
  */
 public func format<A>(_ formatter: Formatter<String, A>) -> A {
-  return formatter.format { string in string }
+  return formatter { string in string }
 }
 
 // MARK:
@@ -31,9 +29,9 @@ public func format<A>(_ formatter: Formatter<String, A>) -> A {
  - returns: A formatter combining the left-hand side with the right-hand side.
  */
 public func % <A, B, C>(lhs: Formatter<B, A>, rhs: Formatter<C, B>) -> Formatter<C, A> {
-  return Formatter { stringToResult in
-    lhs.format { leftString in
-      rhs.format { rightString in
+  return { stringToResult in
+    lhs { leftString in
+      rhs { rightString in
         stringToResult(leftString + rightString)
       }
     }
@@ -41,7 +39,7 @@ public func % <A, B, C>(lhs: Formatter<B, A>, rhs: Formatter<C, B>) -> Formatter
 }
 
 private func s<A>(_ string: String) -> Formatter<A, A> {
-  return Formatter { stringToResult in stringToResult(string) }
+  return { stringToResult in stringToResult(string) }
 }
 
 /**
@@ -88,10 +86,10 @@ public func % <R, A>(lhs: String, rhs: Formatter<R, A>) -> Formatter<R, A> {
  - returns: A combined formatter matching the types of the given formatters.
  */
 public func <> <R, A>(lhs: FormatterOf<R, A>, rhs: FormatterOf<R, A>) -> FormatterOf<R, A> {
-  return Formatter { stringToResult in
+  return { stringToResult in
     { input in
-      lhs.format { leftString in
-        rhs.format { rightString in
+      lhs { leftString in
+        rhs { rightString in
           stringToResult(leftString + rightString)
         }(input)
       }(input)
@@ -112,14 +110,14 @@ public func <> <R, A>(lhs: FormatterOf<R, A>, rhs: FormatterOf<R, A>) -> Formatt
    - rhs: a formatter
  */
 public func .% <A, B, C>(lhs: Formatter<C, (String) -> B>, rhs: Formatter<B, A>) -> Formatter<C, A> {
-  return Formatter { stringToResult in rhs.format(lhs.format(stringToResult)) }
+  return { stringToResult in rhs(lhs(stringToResult)) }
 }
 
 // MARK:
 // paren-reducing overloads: these can go away when generic accessors (_e.g._, `var string<A>`) are supported
 
 public func format<A>(_ formatter: () -> Formatter<String, A>) -> A {
-  return formatter().format { $0 }
+  return formatter()({ $0 })
 }
 
 public func % <R, A>(lhs: () -> Formatter<R, A>, rhs: String) -> Formatter<R, A> {

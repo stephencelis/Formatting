@@ -1,7 +1,7 @@
 import Foundation
 
 public func date<A>(_ formatter: DateFormatter) -> FormatterOf<Date, A> {
-  return Formatter { f in { date in f(formatter.string(from: date)) } }
+  return { f in { date in f(formatter.string(from: date)) } }
 }
 
 private func date<A>(builder: (DateFormatter) -> ()) -> FormatterOf<Date, A> {
@@ -35,7 +35,7 @@ public func iso8601<A>(_ options: ISO8601DateFormatter.Options = []) -> Formatte
   if !options.isEmpty {
     df.formatOptions = options
   }
-  return Formatter { f in { date in f(df.string(from: date)) } }
+  return { f in { date in f(df.string(from: date)) } }
 }
 
 /**

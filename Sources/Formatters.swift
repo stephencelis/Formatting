@@ -6,28 +6,28 @@ import Foundation
  Render a string.
  */
 public func string<A>() -> FormatterOf<String, A> {
-  return Formatter { f in { string in f(string) } }
+  return { f in { string in f(string) } }
 }
 
 /**
  Render the `description` of a `CustomStringConvertible`.
  */
 public func describe<A, R: CustomStringConvertible>() -> FormatterOf<R, A> {
-  return Formatter { f in { convertible in f(convertible.description) } }
+  return { f in { convertible in f(convertible.description) } }
 }
 
 /**
  Render the `debugDescription` of a `CustomDebugStringConvertible`.
  */
 public func debug<A, R: CustomDebugStringConvertible>() -> FormatterOf<R, A> {
-  return Formatter { f in { convertible in f(convertible.debugDescription) } }
+  return { f in { convertible in f(convertible.debugDescription) } }
 }
 
 /**
  Render a character.
  */
 public func char<A>() -> FormatterOf<Character, A> {
-  return Formatter { f in { char in f(String(char)) } }
+  return { f in { char in f(String(char)) } }
 }
 
 /**
@@ -37,21 +37,21 @@ public func char<A>() -> FormatterOf<Character, A> {
      // "Got: 'a' (92)"
  */
 public func asInt<A>() -> FormatterOf<Character, A> {
-  return Formatter { f in { char in f(String(String(char).utf8.first!)) } }
+  return { f in { char in f(String(String(char).utf8.first!)) } }
 }
 
 /**
  Render uppercased.
  */
 public func upper<A>() -> FormatterOf<String, A> {
-  return Formatter { f in { string in f(string.uppercased()) } }
+  return { f in { string in f(string.uppercased()) } }
 }
 
 /**
  Render lowercased.
  */
 public func lower<A>() -> FormatterOf<String, A> {
-  return Formatter { f in { string in f(string.lowercased()) } }
+  return { f in { string in f(string.lowercased()) } }
 }
 
 // MARK: Numbers
@@ -60,22 +60,22 @@ public func lower<A>() -> FormatterOf<String, A> {
  Render an integer.
  */
 public func int<A>() -> FormatterOf<Int, A> {
-  return Formatter { f in { int in f(String(int)) } }
+  return { f in { int in f(String(int)) } }
 }
 
 /**
  Render a double.
  */
 public func float<A>() -> FormatterOf<Double, A> {
-  return Formatter { f in { double in f(String(double)) } }
+  return { f in { double in f(String(double)) } }
 }
 
 public func number<A>(_ formatter: NumberFormatter) -> FormatterOf<Int, A> {
-  return Formatter { f in { n in f(formatter.string(from: n)!) } }
+  return { f in { n in f(formatter.string(from: n)!) } }
 }
 
 public func number<A>(_ formatter: NumberFormatter) -> FormatterOf<Double, A> {
-  return Formatter { f in { n in f(formatter.string(from: n)!) } }
+  return { f in { n in f(formatter.string(from: n)!) } }
 }
 
 private func number<A>(_ builder: (NumberFormatter) -> ()) -> FormatterOf<Int, A> {
@@ -129,7 +129,7 @@ public func ord<A>() -> FormatterOf<Int, A> {
    - pad: character used for padding (defaults to a space)
  */
 public func left<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<String, A> {
-  return Formatter { f in
+  return { f in
     { string in
       let pad = repeatElement(String(pad), count: max(0, length - string.characters.count))
         .joined(separator: "")
@@ -150,7 +150,7 @@ public func left<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<String
    - pad: character used for padding (defaults to a space)
  */
 public func right<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<String, A> {
-  return Formatter { f in
+  return { f in
     { string in
       let pad = repeatElement(String(pad), count: max(0, length - string.characters.count))
         .joined(separator: "")
@@ -174,7 +174,7 @@ public func right<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<Strin
    number of characters are necessary for padding.
  */
 public func center<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<String, A> {
-  return Formatter { f in
+  return { f in
     { string in
       let half = Double(max(0, length - string.characters.count)) / 2
       let p = String(pad)
@@ -189,7 +189,7 @@ public func center<A>(_ length: Int, _ pad: Character = " ") -> FormatterOf<Stri
  Fit in the given length, truncating on the left.
  */
 public func fitLeft<A>(_ length: Int) -> FormatterOf<String, A> {
-  return Formatter { f in
+  return { f in
     { string in f(String(string.characters.prefix(length))) }
   }
 }
@@ -198,7 +198,7 @@ public func fitLeft<A>(_ length: Int) -> FormatterOf<String, A> {
  Fit in the given length, truncating on the right.
  */
 public func fitRight<A>(_ length: Int) -> FormatterOf<String, A> {
-  return Formatter { f in
+  return { f in
     { string in f(String(string.characters.suffix(length))) }
   }
 }
@@ -209,7 +209,7 @@ public func fitRight<A>(_ length: Int) -> FormatterOf<String, A> {
  Render an integral with the given base.
  */
 public func base<A>(_ radix: Int) -> FormatterOf<Int, A> {
-  return Formatter { f in { int in f(String(int, radix: radix)) } }
+  return { f in { int in f(String(int, radix: radix)) } }
 }
 
 /**
@@ -258,7 +258,7 @@ public func prefixHex<A>() -> FormatterOf<Int, A> {
  Renders a given byte count using a given `Foundation.ByteCountFormatter`.
  */
 public func bytes<A>(_ formatter: ByteCountFormatter) -> FormatterOf<Int, A> {
-  return Formatter { f in { byteCount in f(formatter.stringFromByteCount(Int64(byteCount))) } }
+  return { f in { byteCount in f(formatter.stringFromByteCount(Int64(byteCount))) } }
 }
 
 /**
