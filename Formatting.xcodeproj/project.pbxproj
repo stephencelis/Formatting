@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		80F0A63E1D206A1900FFB48A /* Uncurry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F0A63D1D206A1900FFB48A /* Uncurry.swift */; };
-		80F5CAA91D2553CB00625455 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 80F5CAA81D2553CB00625455 /* README.md */; };
 		_LinkFileRef_Formatting_via_FormattingTestSuite /* Formatting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "_____Product_Formatting" /* Formatting.framework */; };
 		__src_cc_ref_Sources/Date.swift /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Date.swift /* Date.swift */; };
 		__src_cc_ref_Sources/Formatter.swift /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = __PBXFileRef_Sources/Formatter.swift /* Formatter.swift */; };
@@ -210,7 +209,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				80F5CAA91D2553CB00625455 /* README.md in Sources */,
 				__src_cc_ref_Sources/Date.swift /* Date.swift in Sources */,
 				__src_cc_ref_Sources/Formatter.swift /* Formatter.swift in Sources */,
 				80F0A63E1D206A1900FFB48A /* Uncurry.swift in Sources */,
