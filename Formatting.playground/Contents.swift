@@ -15,7 +15,7 @@ dateFormatter(Date())
 
 
 let longDateFormatter =
-  format(date(.longStyle))
+  format(date(.long))
 
 longDateFormatter(Date())
 

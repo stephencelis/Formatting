@@ -14,14 +14,14 @@ public func date<A>(format: String) -> FormatterOf<Date, A> {
   return date { $0.dateFormat = format }
 }
 
-public func date<A>(_ dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style = .noStyle)
+public func date<A>(_ dateStyle: DateFormatter.Style, time timeStyle: DateFormatter.Style = .none)
   -> FormatterOf<Date, A> {
-    assert(dateStyle != .noStyle, "use the `time()` formatter for time")
+    assert(dateStyle != .none, "use the `time()` formatter for time")
     return date { ($0.dateStyle, $0.timeStyle) = (dateStyle, timeStyle) }
 }
 
 public func time<A>(_ timeStyle: DateFormatter.Style) -> FormatterOf<Date, A> {
-  return date(.noStyle, time: timeStyle)
+  return date(.none, time: timeStyle)
 }
 
 /**
