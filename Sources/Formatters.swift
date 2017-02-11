@@ -71,11 +71,11 @@ public func float<A>() -> FormatterOf<Double, A> {
 }
 
 public func number<A>(_ formatter: NumberFormatter) -> FormatterOf<Int, A> {
-  return Formatter { f in { n in f(formatter.string(from: n)!) } }
+  return Formatter { f in { n in f(formatter.string(from: n as NSNumber)!) } }
 }
 
 public func number<A>(_ formatter: NumberFormatter) -> FormatterOf<Double, A> {
-  return Formatter { f in { n in f(formatter.string(from: n)!) } }
+  return Formatter { f in { n in f(formatter.string(from: n as NSNumber)!) } }
 }
 
 private func number<A>(_ builder: (NumberFormatter) -> ()) -> FormatterOf<Int, A> {
@@ -258,7 +258,7 @@ public func prefixHex<A>() -> FormatterOf<Int, A> {
  Renders a given byte count using a given `Foundation.ByteCountFormatter`.
  */
 public func bytes<A>(_ formatter: ByteCountFormatter) -> FormatterOf<Int, A> {
-  return Formatter { f in { byteCount in f(formatter.stringFromByteCount(Int64(byteCount))) } }
+  return Formatter { f in { byteCount in f(formatter.string(fromByteCount: Int64(byteCount))) } }
 }
 
 /**

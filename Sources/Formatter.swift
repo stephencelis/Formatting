@@ -5,7 +5,7 @@
  */
 
 public struct Formatter<Result, A> {
-  public let format: ((String) -> Result) -> A
+  public let format: (@escaping (String) -> Result) -> A
 }
 
 /**
